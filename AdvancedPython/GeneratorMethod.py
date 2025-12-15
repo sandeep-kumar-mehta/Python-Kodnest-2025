@@ -13,9 +13,6 @@ res = disp()
 # for i in range(2):
 #     print(res.__next__())
 
-# another method Exceptions
-for i in res:
-    try:
-        print(res.__next__())
-    except:
-        print("There is not next value available stop this iterations")
+# another method - iterate directly over generator
+for value in res:
+    print(value)

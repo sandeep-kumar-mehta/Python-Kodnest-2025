@@ -17,4 +17,4 @@ print(res)   # generator object
 print(res.__next__()) # 10
 print(res.__next__()) # 20
 print(res.__next__()) # 30
-print(res.__next__()) # StopIteration
+# print(res.__next__()) # StopIteration - calling more than available will raise exception
