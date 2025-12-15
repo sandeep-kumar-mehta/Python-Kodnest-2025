@@ -53,7 +53,7 @@ for i in range(rows):
 # * * * 
 # * * 
 # * 
-print(" ")  # Space betweem them
+print(" ")  # Space between them
 
 for i in range(rows):
     print("* " * (rows - i))
@@ -66,7 +66,7 @@ for i in range(rows):
 # * *
 # *
 
-print(" ")  # Space betweem them
+print(" ")  # Space between them
 
 for i in range(rows):
     print("  " * (rows - i) + "* " * (2 * i + 1))
@@ -79,7 +79,7 @@ for i in range(rows):
 #   * * * * * * * * *
 
 
-print(" ")  # Space betweem them
+print(" ")  # Space between them
 
 for i in range(rows):
     print("  " * (i + 1) + "* " * (2 * (rows - i) - 1))
