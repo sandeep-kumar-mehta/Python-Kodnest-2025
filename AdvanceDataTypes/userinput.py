@@ -7,9 +7,7 @@ userData = input("Enter list elements seperated by space: ") # 10 20 30 40
 
 
 li = userData.split()
-li = []
-for i in li:
-    li.append(int(i))
+li = [int(i) for i in li]  # Use list comprehension for efficiency
 print(sum(li)/len(li))
 
 

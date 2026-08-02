@@ -12,9 +12,7 @@ rows = int(input('Enter Number of Rows: ')) # taking an input
 
 
 for i in range(rows):
-    for j in range(i+1):
-        print("*", end = " ")
-    print()
+    print("* " * (i + 1))
 
 # output: 
 # * 
@@ -55,12 +53,10 @@ for i in range(rows):
 # * * * 
 # * * 
 # * 
-print(" ")  # Space betweem them
+print(" ")  # Space between them
 
 for i in range(rows):
-    for j in range(i, rows):
-        print("*", end=" ")
-    print()
+    print("* " * (rows - i))
 
 
 # output: 
@@ -70,16 +66,10 @@ for i in range(rows):
 # * *
 # *
 
-print(" ")  # Space betweem them
+print(" ")  # Space between them
 
 for i in range(rows):
-    for j in range(i , rows):
-        print(' ', end=" ")
-    for k in range(i + 1):
-        print("*", end=" ")
-    for m in range(i):
-        print("*", end=" ")
-    print()
+    print("  " * (rows - i) + "* " * (2 * i + 1))
 
 # output: 
 #           *
@@ -89,16 +79,10 @@ for i in range(rows):
 #   * * * * * * * * *
 
 
-print(" ")  # Space betweem them
+print(" ")  # Space between them
 
 for i in range(rows):
-    for j in range(i + 1):
-        print(' ', end = " ")
-    for k in range(i, rows):
-        print("*", end=" ")
-    for m in range(i, rows - 1):
-        print("*", end=" ")
-    print()
+    print("  " * (i + 1) + "* " * (2 * (rows - i) - 1))
 
 
 # output :
@@ -111,12 +95,4 @@ for i in range(rows):
 
 
 for i in range(rows):
-    for j in range(i, rows):
-        print(' ', end=" ")
-    for j in range(i+1):
-        print("*", end=" ")
-    for m in range(i, rows):
-        print(" ", end=" ")
-    for n in range(i + 1):
-        print("*", end=" ")
-    print()
+    print("  " * (rows - i) + "* " * (i + 1) + "  " * (rows - i) + "* " * (i + 1))
