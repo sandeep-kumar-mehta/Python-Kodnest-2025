@@ -1,0 +1,138 @@
+import java.util.*;
+
+class Main {
+
+    static final long NEG = -(1L << 60);
+
+    static long solveLinear(int[] a, int need, int K) {
+        int m = a.length;
+
+        long[][][] prev = new long[need + 1][K + 1][2];
+        long[][][] cur = new long[need + 1][K + 1][2];
+
+        for (int j = 0; j <= need; j++)
+            for (int t = 0; t <= K; t++)
+                Arrays.fill(prev[j][t], NEG);
+
+        prev[0][0][0] = 0;
+
+        for (int i = 0; i < m; i++) {
+
+            for (int j = 0; j <= need; j++)
+                for (int t = 0; t <= K; t++)
+                    Arrays.fill(cur[j][t], NEG);
+
+            for (int j = 0; j <= need; j++) {
+                for (int t = 0; t <= K; t++) {
+                    for (int last = 0; last < 2; last++) {
+
+                        long val = prev[j][t][last];
+                        if (val == NEG) continue;
+
+                        cur[j][t][0] = Math.max(cur[j][t][0], val);
+
+                        if (j < need) {
+                            int nt = t + last;
+                            if (nt <= K) {
+                                cur[j + 1][nt][1] =
+                                        Math.max(cur[j + 1][nt][1], val + a[i]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            long[][][] tmp = prev;
+            prev = cur;
+            cur = tmp;
+        }
+
+        long ans = NEG;
+
+        for (int t = 0; t <= K; t++) {
+            ans = Math.max(ans, prev[need][t][0]);
+            ans = Math.max(ans, prev[need][t][1]);
+        }
+
+        return ans;
+    }
+
+    public static int solve(int n, int K, int[] slices) {
+
+        int m = slices.length;
+
+        long ans = solveLinear(Arrays.copyOfRange(slices, 1, m), n, K);
+
+        int[] arr = Arrays.copyOfRange(slices, 1, m);
+
+        long[][][] prev = new long[n + 1][K + 1][2];
+        long[][][] cur = new long[n + 1][K + 1][2];
+
+        for (int j = 0; j <= n; j++)
+            for (int t = 0; t <= K; t++)
+                Arrays.fill(prev[j][t], NEG);
+
+        prev[1][0][1] = slices[0];
+
+        for (int i = 0; i < arr.length; i++) {
+
+            for (int j = 0; j <= n; j++)
+                for (int t = 0; t <= K; t++)
+                    Arrays.fill(cur[j][t], NEG);
+
+            for (int j = 0; j <= n; j++) {
+                for (int t = 0; t <= K; t++) {
+                    for (int last = 0; last < 2; last++) {
+
+                        long val = prev[j][t][last];
+                        if (val == NEG) continue;
+
+                        cur[j][t][0] = Math.max(cur[j][t][0], val);
+
+                        if (j < n) {
+                            int nt = t + last;
+                            if (nt <= K) {
+                                cur[j + 1][nt][1] =
+                                        Math.max(cur[j + 1][nt][1], val + arr[i]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            long[][][] tmp = prev;
+            prev = cur;
+            cur = tmp;
+        }
+
+        for (int t = 0; t <= K; t++) {
+            for (int last = 0; last < 2; last++) {
+
+                long val = prev[n][t][last];
+                if (val == NEG) continue;
+
+                int used = t + last;
+
+                if (used <= K)
+                    ans = Math.max(ans, val);
+            }
+        }
+
+        return (int) ans;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int K = sc.nextInt();
+
+        int[] slices = new int[3 * n];
+
+        for (int i = 0; i < 3 * n; i++)
+            slices[i] = sc.nextInt();
+
+        System.out.println(solve(n, K, slices));
+    }
+}
